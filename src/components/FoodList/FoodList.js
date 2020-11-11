@@ -4,7 +4,6 @@ import styles from './FoodList.module.css';
 const FoodList = (props) => {
     const { label, foodId, image } = props.item.food;
     //console.log(props.item.food.label);
-    //console.log(foodId);
 
     return (
         <div>

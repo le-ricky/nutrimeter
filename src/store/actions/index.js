@@ -21,9 +21,9 @@ export const signOut = () => {
     }
 }
 
-export const addFood = () => {
+export const selectFood = (payload) => {
     return {
-        type: actionType.ADD_FOOD,
+        type: actionType.SELECT_FOOD,
         payload: payload
     }
 }

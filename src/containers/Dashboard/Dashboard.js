@@ -8,6 +8,9 @@ import FoodList from '../../components/FoodList/FoodList';
 import {v4 as uuidv4} from 'uuid';
 import SelectedFood from '../../components/SelectedFood/SelectedFood';
 import Macro from '../../components/Macro/Marco';
+import { connect } from 'react-redux';
+import { selectFood } from '../../store/actions';
+
 
 class Dashboard extends React.Component {
     state = { 
@@ -53,12 +56,16 @@ class Dashboard extends React.Component {
         const APP_ID = '3cc6bdb6';
         const response2 = await axios.post(`https://api.edamam.com/api/food-database/v2/nutrients?app_id=${APP_ID}&app_key=${APP_KEY}`, {
             "ingredients": [{
-                "quantity": 1,
-                "measureURI": "http://www.edamam.com/ontologies/edamam.owl#Measure_unit",
+                "quantity": 100,
+                "measureURI": "http://www.edamam.com/ontologies/edamam.owl#Measure_gram",
                 "foodId": foodId
             }]
-        }).then(res => this.setState({ selected: {data:res.data, label: label }}));
-        console.log(this.state.selected.data.calories)
+        }).then(res => {
+            const data = res.data;
+            this.props.selectFood({ data, foodId})
+            })
+        // then(res => this.setState({ selected: {data:res.data, label: label }}));
+        // console.log(this.state.selected)
     }
     
     render() {
@@ -87,4 +94,4 @@ class Dashboard extends React.Component {
     }
 }
 
-export default Dashboard;
+export default connect(null, { selectFood })(Dashboard);
