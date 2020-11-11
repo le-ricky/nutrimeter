@@ -6,7 +6,8 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import axios from 'axios';
 import FoodList from '../../components/FoodList/FoodList';
 import {v4 as uuidv4} from 'uuid';
-import Food from '../../components/Food/Food';
+import SelectedFood from '../../components/SelectedFood/SelectedFood';
+import Macro from '../../components/Macro/Marco';
 
 class Dashboard extends React.Component {
     state = { 
@@ -58,28 +59,29 @@ class Dashboard extends React.Component {
             }]
         }).then(res => this.setState({ selected: {data:res.data, label: label }}));
         console.log(this.state.selected.data.calories)
-        
-
-        
     }
     
-
     render() {
         return (
-            <div>
-                <div className="food__data">
-                    <CalorieCount />
-                    <SearchBar onSearchBarSubmit={this.onSearchSubmit} />
-                    Found {this.state.results.length} recipes
-                    <div className={styles.container}>
-                        {this.onRenderResults()}
+            <div className="ui horizontal segments">
+                <div className="ui segment">
+                    <SelectedFood item={ this.state.selected }/>
+                    <div className="food__data">
+                        <SearchBar onSearchBarSubmit={this.onSearchSubmit} />
+                        Found {this.state.results.length} recipes
+                        <div className={styles.container}>
+                            {this.onRenderResults()}
+                        </div>
+                        
                     </div>
-                    <Food item={ this.state.selected }/>
                 </div>
-                <div className="profile">
-
+                <div className="ui segment">
+                    <div className="profile">
+                        <div className="ui segment">
+                        <Macro />
+                        </div>
+                    </div>
                 </div>
-
             </div>
         );
     }

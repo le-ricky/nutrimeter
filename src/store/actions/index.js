@@ -20,3 +20,10 @@ export const signOut = () => {
         type: actionType.SIGN_OUT,
     }
 }
+
+export const addFood = () => {
+    return {
+        type: actionType.ADD_FOOD,
+        payload: payload
+    }
+}
