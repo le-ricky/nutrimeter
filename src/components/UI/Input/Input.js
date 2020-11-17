@@ -2,6 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
+
 import { storeUserInput } from '../../../store/actions';
 
 const required = value => value ? undefined : 'Required'
@@ -42,8 +43,9 @@ class Input extends React.Component {
     }
 
     onSubmit = (formValues) => {
-        storeUserInput(5000)
-        console.log(formValues)
+        this.props.calorie(formValues.calorieIntake);
+        console.log(`Formvalue ${formValues.calorieIntake}`);
+        console.log(formValues.calorieIntake);
     }
 
     render() {
@@ -127,7 +129,11 @@ const warn = formValues => {
 // }
 
 
-Input = connect(null, { storeUserInput })(Input)
+const mapDispatchToProps = dispatch => ({
+    calorie: input => dispatch(storeUserInput(input))
+})
+
+Input = connect(null, mapDispatchToProps)(Input)
 
 export default reduxForm({
     form: 'calorieIntake'

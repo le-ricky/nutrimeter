@@ -8,6 +8,14 @@ export const storeUserInput = (payload) => {
     };
 };
 
+export const storeMacroInput = (payload) => {
+    console.log(payload)
+    return {
+        type: actionType.UPDATE_CALORIE_BREAKOUT,
+        payload: payload
+    };
+};
+
 export const signIn = (id) => {
     return {
         type: actionType.SIGN_IN,

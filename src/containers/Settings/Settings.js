@@ -8,7 +8,7 @@ class Settings extends React.Component {
     render() {
         return (
             <div className="ui container">
-                <UserSettings />
+                {/* <UserSettings /> */}
                 <Input />
                 <Macros />
             </div>

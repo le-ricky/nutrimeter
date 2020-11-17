@@ -1,20 +1,49 @@
-// const initialState = {
-//     dailyCalories: null,
-//     fat: null,
-//     carbs: null,
-//     protein: null
-// }
+import * as actionType from '../actions/actionTypes';
 
-export const calorieReducer = (state = {}, action) => {
+const INITIAL_STATE = {
+    dailyCalories: null,
+    protein: {
+        valuePercentage: null,
+        valueCalorie: null,
+        valueGram: null
+    },
+    carbs:{
+        valuePercentage: null,
+        valueCalorie: null,
+        valueGram: null
+    },
+    fats:{
+        valuePercentage: null,
+        valueCalorie: null,
+        valueGram: null
+    },
+}
+
+export const calorieReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case 'UPDATE_CALORIE':
+        case actionType.UPDATE_CALORIE:
             return {
                 ...state,
-                calorieData: 6000
+                dailyCalories: action.payload
             }
         case 'UPDATE_CALORIE_BREAKOUT':
             return {
-                ...state
+                ...state,
+                protein: {
+                    valuePercentage: parseFloat(action.payload.protein)/100,
+                    valueCalorie: Math.round(parseFloat(action.payload.protein)/100 * state.dailyCalories),
+                    valueGram: Math.round(parseFloat(action.payload.protein)/100 * state.dailyCalories / 4),
+                },
+                carbs: {
+                    valuePercentage: parseFloat(action.payload.carb)/100,
+                    valueCalorie: Math.round(parseFloat(action.payload.carb)/100 * state.dailyCalories),
+                    valueGram: Math.round(parseFloat(action.payload.carb)/100 * state.dailyCalories /4)
+                },
+                fats: {
+                    valuePercentage: parseFloat(action.payload.fat)/100,
+                    valueCalories: Math.round(parseFloat(action.payload.fat)/100 * state.dailyCalories),
+                    valueGram: Math.round(parseFloat(action.payload.fat)/100 * state.dailyCalories / 9)
+                },
             }
     }   
     

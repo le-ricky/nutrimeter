@@ -1,5 +1,8 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux';
+
+import { storeMacroInput } from '../../../store/actions';
 
 class Macros extends React.Component {
     renderError = ({ error }) => {
@@ -44,7 +47,8 @@ class Macros extends React.Component {
     }
 
 
-    onSubmit(formValues) {
+    onSubmit = (formValues) => {
+        this.props.macros(formValues)
         console.log(formValues)
     }
 
@@ -55,7 +59,7 @@ class Macros extends React.Component {
             <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
                 <div className="ui form">
                     <div>
-                        <Field name="protien" component={this.renderInput} label="Protein" />
+                        <Field name="protein" component={this.renderInput} label="Protein" />
                         <Field name="carb" component={this.renderInput} label="Carbohydrates" />
                         <Field name="fat" component={this.renderInput} label="Fats" />
                     </div>
@@ -85,6 +89,12 @@ const validate = (formValues) => {
     console.log(sum)
     return error
 }
+
+const mapDispatchToProps = dispatch => ({
+    macros: input => dispatch(storeMacroInput(input))
+})
+
+Macros = connect(null, mapDispatchToProps)(Macros)
 
 export default reduxForm({
     form: 'Macros',
