@@ -6,6 +6,8 @@ import storage from 'redux-persist/lib/storage';
 import { calorieReducer } from './calorieReducer';
 import authReducer from './authReducer';
 import selectFoodReducer from './selectFoodReducer';
+import addFoodReducer from './addFoodReducer';
+
 
 const persistConfig = {
     key: 'root',
@@ -17,7 +19,8 @@ const rootReducer = combineReducers({
     calorieData: calorieReducer,
     form: formReducer,
     auth: authReducer,
-    selectFood: selectFoodReducer
+    selectFood: selectFoodReducer,
+    addedFood: addFoodReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);

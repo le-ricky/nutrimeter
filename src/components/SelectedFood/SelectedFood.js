@@ -17,7 +17,7 @@ const SelectedFood = (props) => {
                     Fats: {props.selectFood.fats.amount}
                 </div>
                 <span>
-                    <button className="ui primary button" onClick={() =>props.addFood(props.selectFood)} >Add Food</button>
+                    <button className="ui primary button" onClick={() =>props.addFood(props.selectFood)}>Add Food</button>
                 </span>
             </div>
         );
