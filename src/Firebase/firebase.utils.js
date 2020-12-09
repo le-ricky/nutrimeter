@@ -14,14 +14,38 @@ const config = {
     measurementId: "G-FMFT7KDR4L"
   };
 
+  export const createUserProfileDocument = async (userAuth, additionalData) => {
+    if (!userAuth) return;
+    const userRef = firestore.doc(`users/${userAuth.uid}`); //References the doc location using the id within the collection called 'users'
+    const snapshot = await userRef.get(); // .get() to query the snap of said reference point
+
+    //.set() if user does not already exist in collection
+    if (!snapshot.exists) {
+      const { displayName, email } = userAuth;
+      const createDate = new Date();
+
+      try {
+        await userRef.set({
+          displayName,
+          email,
+          createDate,
+          ...additionalData
+        })
+      } catch (error) {
+        console.log('error creating user', error.message)
+      }
+    }
+    return userRef;
+  }
+
 
   firebase.initializeApp(config);
 
-  export const auth = firebase.auth();
-  export const firestore = firebase.firestore();
+  export const auth = firebase.auth(); //imported using fireebase/auth
+  export const firestore = firebase.firestore(); //imported using fireebase/firestore
 
-  const provider = new firebase.auth.GoogleAuthProvider();
-  provider.setCustomParameters({ prompt: 'select_account' });
-  export const signInWithGoogle = () => auth.signInWithPopup(provider);
+  const provider = new firebase.auth.GoogleAuthProvider(); //GoogleAuthProvider class from the auth library
+  provider.setCustomParameters({ prompt: 'select_account' }); //prompts the google sign-in to select user account
+  export const signInWithGoogle = () => auth.signInWithPopup(provider); //pop-up function that we pass in the specific google prompt.
 
   export default firebase;

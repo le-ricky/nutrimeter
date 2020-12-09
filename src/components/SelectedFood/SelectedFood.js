@@ -6,6 +6,7 @@ import { addFood } from '../../store/actions';
 const SelectedFood = (props) => {
     let food = "No Food Items Selected"
     if(props.selectFood.label) {
+        console.log(props.selectFood)
         food = (
             <div className="ui segment">
                 <div className="ui segment">
@@ -16,7 +17,7 @@ const SelectedFood = (props) => {
                     Fats: {props.selectFood.fats.amount}
                 </div>
                 <span>
-                    <button className="ui primary button">Add Food</button>
+                    <button className="ui primary button" onClick={() =>props.addFood(props.selectFood)} >Add Food</button>
                 </span>
             </div>
         );
@@ -34,4 +35,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(SelectedFood);
+const mapDispatchToProps = dispatch => {
+    return {
+        addFood: food => dispatch(addFood(food))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectedFood);

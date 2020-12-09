@@ -6,7 +6,7 @@ import Settings from './containers/Settings/Settings';
 import FoodDatabase from './containers/FoodDatabase/FoodDatabase';
 import Header from './components/Navigation/Header/Header';
 
-import { auth } from './Firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './Firebase/firebase.utils';
 
 
 class App extends React.Component {
@@ -17,8 +17,23 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user });
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot(snapshot => {
+          this.setState({
+            currentUser: {
+              id: snapshot.id,
+              ...snapshot.data()
+            }
+          });
+        })
+      } else {
+        this.setState({
+          currentUser: userAuth
+        })
+      }
     });
   }
 

@@ -35,3 +35,11 @@ export const selectFood = (payload) => {
         payload: payload
     }
 }
+
+export const addFood = (payload) => {
+    console.log(payload)
+    return {
+        type: actionType.ADD_FOOD,
+        payload: payload
+    }
+}
