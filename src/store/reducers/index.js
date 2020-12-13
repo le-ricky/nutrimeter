@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
     form: formReducer,
     auth: authReducer,
     selectFood: selectFoodReducer,
-    addedFood: addFoodReducer
+    addedFoods: addFoodReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);

@@ -30,6 +30,7 @@ export const signOut = () => {
 }
 
 export const selectFood = (payload) => {
+    console.log(payload)
     return {
         type: actionType.SELECT_FOOD,
         payload: payload
