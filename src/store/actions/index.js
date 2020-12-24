@@ -30,15 +30,23 @@ export const signOut = () => {
 }
 
 export const selectFood = (payload) => {
-    console.log(payload)
+    //console.log(payload)
     return {
         type: actionType.SELECT_FOOD,
         payload: payload
     }
 }
 
-export const addFood = (payload) => {
+export const foodMacros = (payload) => {
     console.log(payload)
+    return {
+        type: actionType.FOOD_MACROS,
+        payload: payload
+    }
+}
+
+export const addFood = (payload) => {
+    //console.log(payload)
     return {
         type: actionType.ADD_FOOD,
         payload: payload

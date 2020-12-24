@@ -43,12 +43,11 @@ class Dashboard extends React.Component {
 
     onRenderResults = () => {
         const foodResults = this.state.results !== [] ? this.state.results.map(item =>
-            <FoodList
-                key={uuidv4()}
-                item={item}
-                clicked={() => this.props.selectFood(item)}
-                />) 
-                : null;
+                <FoodList
+                    key={uuidv4()}
+                    item={item}
+                    //clicked={() => this.props.selectFood(item)}
+                    />): null;
             return foodResults;
     }
 
@@ -90,7 +89,10 @@ class Dashboard extends React.Component {
         return (
             <div className="ui horizontal segments">
                 <div className="ui segment">
-                    <SelectedFood selectedItem={ this.state.selectedFood }/>
+                    {/* <Modal>
+                        <SelectedFood selectedItem={ this.state.selectedFood }/>
+                    </Modal> */}
+                    
                     <div className="food__data">
                         <SearchBar onSearchBarSubmit={this.onSearchSubmit} />
                         Found {this.state.results.length} recipes
@@ -99,13 +101,13 @@ class Dashboard extends React.Component {
                         </div>    
                     </div>
                 </div>
-                <div className="ui segment">
+                <div className="ui segments">
                     <div className="profile">
                         <div className="ui segment">
                         <Macro />
                         </div>
                     </div>
-                    <div className="addedFoods ui segments">
+                    <div>
                         {this.onRenderAddedFoods()}
                     </div>
                 </div>
@@ -119,6 +121,5 @@ const mapStateToProps = state => {
         addedFoods: state.addedFoods
     }
 }
-
 
 export default connect(mapStateToProps, { selectFood })(Dashboard);

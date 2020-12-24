@@ -6,3 +6,4 @@ export const UPDATE_CALORIE = 'UPDATE_CALORIE';
 export const UPDATE_CALORIE_BREAKOUT = 'UPDATE_CALORIE_BREAKOUT';
 export const ADD_FOOD = 'ADD_FOOD';
 export const SELECT_FOOD = 'SELECT_FOOD';
+export const FOOD_MACROS = 'FOOD_MACROS';

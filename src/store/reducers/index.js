@@ -5,7 +5,7 @@ import storage from 'redux-persist/lib/storage';
 
 import { calorieReducer } from './calorieReducer';
 import authReducer from './authReducer';
-import selectFoodReducer from './selectFoodReducer';
+import { selectFoodReducer, foodMacrosReducer } from './selectFoodReducer';
 import addFoodReducer from './addFoodReducer';
 
 
@@ -20,7 +20,8 @@ const rootReducer = combineReducers({
     form: formReducer,
     auth: authReducer,
     selectFood: selectFoodReducer,
-    addedFoods: addFoodReducer
+    addedFoods: addFoodReducer,
+    foodMacros: foodMacrosReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);
