@@ -4,27 +4,25 @@ import axios from 'axios';
 
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux';
-import { addFood } from '../../store/actions';
+import { addFood, foodMacros } from '../../store/actions';
 
 
 
 class SelectedFood extends React.Component {
 
-    // onSelect = async foodId => {
-    //     const APP_KEY = 'b9b609424e71e7bcb962fdcadc970ff3'; //EDAMAM
-    //     const APP_ID = '3cc6bdb6';
-    //     const response = await axios.post(`https://api.edamam.com/api/food-database/v2/nutrients?app_id=${APP_ID}&app_key=${APP_KEY}`, {
-    //         "ingredients": [{
-    //             "quantity": 100,
-    //             "measureURI": "http://www.edamam.com/ontologies/edamam.owl#Measure_gram",
-    //             "foodId": foodId
-    //         }]
-    //     }).then(res => {this.props.foodMacros(res.data)})
-    // } 
-    
-    //MAYBE MOVE THIS INTO IT's OWN COMPONENT
-
-
+    onSelect = async foodId => {
+        const APP_KEY = 'b9b609424e71e7bcb962fdcadc970ff3'; //EDAMAM
+        const APP_ID = '3cc6bdb6';
+        let value = this.props.form.SelectedFood ? parseInt(this.props.form.SelectedFood.values.amount) : 100;
+        console.log(foodId)
+        const response = await axios.post(`https://api.edamam.com/api/food-database/v2/nutrients?app_id=${APP_ID}&app_key=${APP_KEY}`, {
+            "ingredients": [{
+                "quantity": value,
+                "measureURI": "http://www.edamam.com/ontologies/edamam.owl#Measure_gram",
+                "foodId": foodId
+            }]
+        }).then(res => {this.props.foodMacros(res.data)})
+    } 
     
     render() {
         //const { label, id } = this.props.selectedItem
@@ -37,13 +35,12 @@ class SelectedFood extends React.Component {
         return (
             <div>
                 <div className="ui segment">
-                    <div className="ui segment">
-                        {/* {label} */}
+                    {/* <div className="ui segment">
                         Kcal: {this.props.foodMacros.kcal}
-                        Protein:{this.props.foodMacros.protein.amount}
-                        Carbs:{this.props.foodMacros.carbs.amount}
-                        Fats:{this.props.foodMacros.fats.amount}
-                    </div>
+                        Protein:{this.props.foodMacros.protein.amount}{this.props.foodMacros.protein.measure}
+                        Carbs:{this.props.foodMacros.carbs.amount}{this.props.foodMacros.protein.measure}
+                        Fats:{this.props.foodMacros.fats.amount}{this.props.foodMacros.protein.measure}
+                    </div> */}
                     <div className="ui form">
                         <div className="fields">
                             <div className="three wide field">
@@ -60,7 +57,7 @@ class SelectedFood extends React.Component {
                         </div>
                     </div>
                     <span>
-                        <button className="ui primary button" onClick={() =>this.props.addFood(this.props.selectFood)}>Add Food</button>
+                        <button className="ui primary button" onClick={() => this.onSelect(this.props.selectFood.foodId)}>Add Food</button>
                     </span>
                 </div>
             </div>
@@ -71,13 +68,15 @@ class SelectedFood extends React.Component {
 const mapStateToProps = state => {
     return {
         selectFood: state.selectFood,
-        foodMacros: state.foodMacros
+        foodMacros: state.foodMacros,
+        form: state.form
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         addFood: food => dispatch(addFood(food)),
+        foodMacros: food =>dispatch(foodMacros(food))
     }
 }
 

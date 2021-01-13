@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import FoodList from '../../components/FoodList/FoodList';
 import SelectedFood from '../../components/SelectedFood/SelectedFood';
-import Macro from '../../components/Macro/Marco';
+import Macro from '../../components/Macro/Macro';
 import { selectFood } from '../../store/actions';
 import CalorieCount from '../../components/CalorieCount/CalorieCount';
 import Settings from '../Settings/Settings';
@@ -52,10 +52,11 @@ class Dashboard extends React.Component {
     }
 
     onRenderAddedFoods = () => {
-        const addedFoodList = this.props.addedFoods !== [] ? Object.keys(this.props.addedFoods).map(food =>
-            <AddedFoods 
-            />)
-            : null;
+        let addedFoodList = this.props.foodMarcos.length > 0 ? this.props.foodMarcos.map(food =>
+            <AddedFoods
+                fooditem={food} />
+            )
+            : <span>No Food Here</span> ;
         return addedFoodList;
     }
 
@@ -118,7 +119,7 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        addedFoods: state.addedFoods
+        foodMarcos: state.foodMacros
     }
 }
 

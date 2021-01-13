@@ -1,11 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const AddedFoods = () => {
+const AddedFoods = (props) => {
+    console.log(props)
     return (
         <div className="segment ui">
-            Food Item
+            Title: {}
+            Kcal: {props.fooditem.calories}
         </div>
     )
 }
 
-export default AddedFoods;
+const mapStateToProps = state => {
+    return {
+        foodDiary: state.foodMacros
+    }
+}
+
+export default connect(mapStateToProps)(AddedFoods);

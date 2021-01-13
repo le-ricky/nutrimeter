@@ -24,22 +24,27 @@ const ModalExampleSize = (props) => {
   })
   const { open, size } = state
 
-  const onSelect = async foodId => {
-    const APP_KEY = 'b9b609424e71e7bcb962fdcadc970ff3'; //EDAMAM
-    const APP_ID = '3cc6bdb6';
-    const response = await axios.post(`https://api.edamam.com/api/food-database/v2/nutrients?app_id=${APP_ID}&app_key=${APP_KEY}`, {
-        "ingredients": [{
-            "quantity": 100,
-            "measureURI": "http://www.edamam.com/ontologies/edamam.owl#Measure_gram",
-            "foodId": foodId
-        }]
-    }).then(res => {props.foodMacros(res.data)})}
+  // const onSelect = async foodId => {
+  //   const APP_KEY = 'b9b609424e71e7bcb962fdcadc970ff3'; //EDAMAM
+  //   const APP_ID = '3cc6bdb6';
+  //   let value = 100;
+  //   if (props.form.SelectedFood) {
+  //     let value = props.form.SelectedFood.values
+  //     return value
+  //   }
+  //   const response = await axios.post(`https://api.edamam.com/api/food-database/v2/nutrients?app_id=${APP_ID}&app_key=${APP_KEY}`, {
+  //       "ingredients": [{
+  //           "quantity": 100,
+  //           "measureURI": "http://www.edamam.com/ontologies/edamam.owl#Measure_gram",
+  //           "foodId": foodId
+  //       }]
+  //   }).then(res => {props.foodMacros(res.data)})
+  // }
 
-    const buttonHandler = () => {
-      dispatch({ type: 'open', size: 'large' });
-      props.selectFood(props.food);
-      onSelect(props.food.foodId)
-    } 
+  const buttonHandler = () => {
+    dispatch({ type: 'open', size: 'large' });
+    props.selectFood(props.food);
+  } 
 
   return (
     <>
@@ -52,27 +57,33 @@ const ModalExampleSize = (props) => {
         open={open}
         onClose={() => dispatch({ type: 'close' })}
       >
-        <Modal.Header>TITLE</Modal.Header>
+        <Modal.Header>{props.selectedFood.label}</Modal.Header>
         <Modal.Content>
           <SelectedFood />
         </Modal.Content>
         <Modal.Actions>
           <Button negative onClick={() => dispatch({ type: 'close' })}>
-            No
+            Cancel
           </Button>
-          <Button positive onClick={() => dispatch({ type: 'close' })}>
+          {/* <Button positive onClick={() => dispatch({ type: 'close' })}>
             Yes
-          </Button>
+          </Button> */}
         </Modal.Actions>
       </Modal>
     </>
   )
 }
 
+const mapStateToProps = state => {
+  return {
+    selectedFood: state.selectFood,
+    form: state.form
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   selectFood: (item) => dispatch(selectFood(item)),
   foodMacros: (item) => dispatch(foodMacros(item))
 })
 
-export default connect(null, mapDispatchToProps)(ModalExampleSize)
+export default connect(mapStateToProps, mapDispatchToProps)(ModalExampleSize)

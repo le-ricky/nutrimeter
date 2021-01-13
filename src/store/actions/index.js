@@ -46,9 +46,16 @@ export const foodMacros = (payload) => {
 }
 
 export const addFood = (payload) => {
-    //console.log(payload)
+    console.log(payload)
     return {
         type: actionType.ADD_FOOD,
         payload: payload
+    }
+}
+
+export const udpateWeight = (payload) => {
+    return {
+        type: actionType.UPDATE_WEIGHT,
+        payload:payload
     }
 }
