@@ -10,6 +10,10 @@ class SearchBar extends React.Component {
         this.props.onSearchBarSubmit(this.state.term)
     }
 
+    onButtonSubmit = () => {
+        this.props.onSearchBarSubmit(this.state.term)
+    }
+
     render() {
         return (
             <div className="ui segment">
@@ -21,6 +25,7 @@ class SearchBar extends React.Component {
                             value={this.state.term} 
                             onChange={(e) => this.setState({ term: e.target.value })} />
                     </div>
+                    <button className="ui button primary" onClick={this.onButtonSubmit}>Search</button>
                 </form>
             </div>
         );
