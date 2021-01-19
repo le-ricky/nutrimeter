@@ -70,6 +70,7 @@ const mapStateToProps = state => {
         selectFood: state.selectFood,
         foodMacros: state.foodMacros,
         form: state.form
+        
     }
 }
 

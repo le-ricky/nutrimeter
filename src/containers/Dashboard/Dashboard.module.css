@@ -3,3 +3,8 @@
     overflow-y: scroll;
     text-transform: uppercase;
 }
+
+.addedFoods {
+    height: 400px;
+    overflow-y: scroll;
+}

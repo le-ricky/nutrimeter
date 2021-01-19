@@ -1,6 +1,6 @@
 import * as actionType from '../actions/actionTypes';
 
-const INITIAL_STATE = []
+const INITIAL_STATE = [];
 
 
 export const selectFoodReducer = ( state = INITIAL_STATE, action ) => {
